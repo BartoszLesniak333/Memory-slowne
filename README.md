@@ -55,3 +55,17 @@ w celu rozwiązania problemów napotkanych w trakcie pracy.
 
 <p align="center"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="70" height="70"/> </a> </p>
 Wybór języka Python do realizacji projektu ma wiele korzyści. Python to język, który jest bardzo prosty w nauce i posiada czytelną składnię, co czyni go idealnym dla początkujących programistów oraz osób, które dopiero zaczynają swoją przygodę z programowaniem. Python działa na wielu systemach operacyjnych, co oznacza, że projekt będzie mógł działać na różnych urządzeniach. Język ten posiada wiele bibliotek i frameworków, które pozwalają na łatwe tworzenie projektów. Python jest też językiem programowania, który cieszy się ogromną popularnością wśród programistów, co oznacza, że można łatwo znaleźć pomoc, rozwiązania problemów i ciekawe projekty do nauki. Dzięki zdolnościom wielozadaniowości. W sumie, wybór języka Python dla projektu jest dobrym wyborem ze względu na jego prostotę, wieloplatformowość, bogatą społeczność programistyczną, wiele bibliotek i frameworków oraz zdolności wielozadaniowości, które ułatwiają tworzenie projektów.
+
+<h1 align="left">Linki i odnośniki</h1>
+<p align="center">
+  <img src="https://github.com/BartoszLesniak333/Memory-slowne/blob/main/Zdj%C4%99cia/Linia.jpeg">
+</p>
+
+- 📄 Użyta licencja: [GNU General Public License v3.0](https://github.com/BartoszLesniak333/Memory-slowne/blob/main/LICENSE)
+
+- 🧑‍🎓 Nasza uczelnia: [Akademia Górniczo-Hutniczej](https://www.agh.edu.pl/)
+
+- 📚 Nasz wydział: [EAIiIB](https://www.eaiib.agh.edu.pl/)
+
+- ⚙️ Nasz kierunek: [Automatyka i Robotyka](https://www.eaiib.agh.edu.pl/automatyka-i-robotyka/)
+
