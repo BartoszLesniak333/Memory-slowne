@@ -1,3 +1,5 @@
 # Word-Memories
-to jest tekst próbny prosze zmodyfikujcie go\
+to 
+t tekst próbny prosze zmodyfikujcie go\
 es
+no spoko cos dodam coś usune
