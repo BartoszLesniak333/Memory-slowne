@@ -9,7 +9,8 @@ def get_file_path(level):
     elif level == 'trudny':
         return 'hard_PL.txt'
     else:
-        return None
+        print("Niewłaściwa ścieżka pliku")
+        exit()
 
 # Funkcja zwracająca listę słów z pliku tekstowego + polskie znaki
 def get_words_from_file(file_path):
