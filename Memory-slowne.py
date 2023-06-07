@@ -15,11 +15,10 @@ def zwalnianie():
 
 def latwy_ilosc():
     n = len(latwy)
-    print(
-        "Zapamiętaj słowa masz na to 1 min.")  # wywolywanie slow do zapamietania napewno bedzie trzeba zmienic czas teraz to dla proby
+    print("Zapamiętaj słowa masz na to 5 min.")  # wywolywanie slow
     for i in range(0, n):
         print(latwy[i])
-    time.sleep(60)
+    time.sleep(300)
     os.system("cls")
     print("Powodzenia!! \nGra zacznie się za:")
     print("3")
@@ -57,10 +56,10 @@ def latwy_ilosc():
 def sredni_ilosc():
     n = len(sredni)
     print(
-        "Zapamiętaj słowa masz na to 1 min.")  # wywolywanie slow do zapamietania napewno bedzie trzeba zmienic czas teraz to dla proby
+        "Zapamiętaj słowa masz na to 5 min.")  # wywolywanie slow
     for i in range(0, n):
         print(sredni[i])
-    time.sleep(60)
+    time.sleep(300)
     os.system("cls")
     print("Powodzenia!! \nGra zacznie się za:")
     print("3")
@@ -99,10 +98,10 @@ def sredni_ilosc():
 def trudny_ilosc():
     n = len(trudny)
     print(
-        "Zapamiętaj słowa masz na to 1 min.")  # wywolywanie slow do zapamietania napewno bedzie trzeba zmienic czas teraz to dla proby
+        "Zapamiętaj słowa masz na to 5 min.")  # wywolywanie slow
     for i in range(0, n):
         print(trudny[i])
-    time.sleep(60)
+    time.sleep(300)
     os.system("cls")
     print("Powodzenia!! \nGra zacznie się za:")
     print("3")
@@ -169,7 +168,7 @@ def ilosc():  # tryb do ilosci
 
 def latwy_czas():
     n = len(latwy)
-    print("Zapamiętaj słowa masz na to 5 min.")  # wywolywanie slow do zapamietania napewno bedzie trzeba zmienic czas teraz to dla proby
+    print("Zapamiętaj słowa masz na to 5 min.")  # wywolywanie slow
     for i in range(0, n):
         print(sredni[i])
     time.sleep(300)
@@ -214,7 +213,7 @@ def latwy_czas():
 def sredni_czas():
     n = len(sredni)
     print(
-        "Zapamiętaj słowa masz na to 5 min.")  # wywolywanie slow do zapamietania napewno bedzie trzeba zmienic czas teraz to dla proby
+        "Zapamiętaj słowa masz na to 5 min.")  # wywolywanie slow
     for i in range(0, n):
         print(sredni[i])
     time.sleep(300)
@@ -258,7 +257,7 @@ def sredni_czas():
 
 def trudny_czas():
     n = len(trudny)
-    print("Zapamiętaj słowa masz na to 5 min.")  # wywolywanie slow do zapamietania napewno bedzie trzeba zmienic czas teraz to dla proby
+    print("Zapamiętaj słowa masz na to 5 min.")  # wywolywanie slow
     for i in range(0, n):
         print(sredni[i])
     time.sleep(300)
