@@ -1,1 +1,0 @@
-kontyuowanie(wynik)
