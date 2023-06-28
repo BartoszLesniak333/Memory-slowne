@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import RIGHT, TOP
 import time
+import re
 
 # Constants:
 WINDOW_WIDTH = 800
@@ -44,7 +45,7 @@ class MenuWindow:
                                             font=("Arial", 14), command=self.how_to_play_window)
         self.how_to_play_button.grid(row=0, column=1, padx=5)
 
-        self.score_button = tk.Button(self.button_frame_first_row, text="Wynik", font=("Arial", 14))
+        self.score_button = tk.Button(self.button_frame_first_row, text="Wynik", font=("Arial", 14), command=self.score)
         self.score_button.grid(row=0, column=2, padx=5)
 
         self.button_frame_first_row.pack()
@@ -78,6 +79,10 @@ class MenuWindow:
     def start_window(self):
         self.root.destroy()
         StartWindow()
+
+    def score(self):
+        self.root.destroy()
+        ScoreWindow()
 
 
 class HowToPlayWindow:
@@ -367,6 +372,13 @@ class EasyQuantityGameWindow:
                     sprawdzanie.clear()
                     self.root.update()
                     self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                    self.root.update()
+                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.button.wait_variable(self.button_pressed)
+                    self.nick = self.input.get()
+                    self.dodaj_wynik(self.nick, self.wynik)
+
                     self.root.update()
                     self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                     self.button.wait_variable(self.button_pressed)
@@ -383,6 +395,13 @@ class EasyQuantityGameWindow:
                 sprawdzanie.clear()
                 self.root.update()
                 self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                self.root.update()
+                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.button.wait_variable(self.button_pressed)
+                self.nick = self.input.get()
+                self.dodaj_wynik(self.nick, self.wynik)
+
                 self.root.update()
                 self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                 self.button.wait_variable(self.button_pressed)
@@ -401,6 +420,13 @@ class EasyQuantityGameWindow:
         sprawdzanie.clear()
         self.root.update()
         self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+        self.root.update()
+        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+        self.button.wait_variable(self.button_pressed)
+        self.nick = self.input.get()
+        self.dodaj_wynik(self.nick, self.wynik)
+
         self.root.update()
         self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
         self.button.wait_variable(self.button_pressed)
@@ -411,6 +437,31 @@ class EasyQuantityGameWindow:
             EasyQuantityGameWindow()
 
         self.root.mainloop()
+
+    def dodaj_wynik(self, nick, wynik):
+
+        with open('wyniki.txt', 'r') as file:
+            lines = file.readlines()
+
+        min_wynik = float('inf')  # Inicjalizacja minimalnej wartości jako nieskończoność
+        min_wynik_index = None  # Indeks najmniejszej wartości
+
+        for i, line in enumerate(lines):
+            match = re.search(r'(\d+) pkt', line)
+            if match:
+                stary_wynik = int(match.group(1))
+
+                if stary_wynik < min_wynik:
+                    min_wynik = stary_wynik
+                    min_wynik_index = i
+
+        if int(wynik) > min_wynik:  # Zamiana wyniku na liczbę całkowitą
+            lines[min_wynik_index] = f"{nick} - {wynik} pkt\n"
+
+            with open('wyniki.txt', 'w') as file:
+                file.writelines(lines)
+        else:
+            pass
 
 
 class MediumQuantityGameWindow:
@@ -475,6 +526,13 @@ class MediumQuantityGameWindow:
                     sprawdzanie.clear()
                     self.root.update()
                     self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                    self.root.update()
+                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.button.wait_variable(self.button_pressed)
+                    self.nick = self.input.get()
+                    self.dodaj_wynik(self.nick, self.wynik)
+
                     self.root.update()
                     self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                     self.button.wait_variable(self.button_pressed)
@@ -491,6 +549,13 @@ class MediumQuantityGameWindow:
                 sprawdzanie.clear()
                 self.root.update()
                 self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                self.root.update()
+                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.button.wait_variable(self.button_pressed)
+                self.nick = self.input.get()
+                self.dodaj_wynik(self.nick, self.wynik)
+
                 self.root.update()
                 self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                 self.button.wait_variable(self.button_pressed)
@@ -509,6 +574,13 @@ class MediumQuantityGameWindow:
         sprawdzanie.clear()
         self.root.update()
         self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+        self.root.update()
+        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+        self.button.wait_variable(self.button_pressed)
+        self.nick = self.input.get()
+        self.dodaj_wynik(self.nick, self.wynik)
+
         self.root.update()
         self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
         self.button.wait_variable(self.button_pressed)
@@ -519,6 +591,31 @@ class MediumQuantityGameWindow:
             MediumQuantityGameWindow()
 
         self.root.mainloop()
+
+    def dodaj_wynik(self, nick, wynik):
+
+        with open('wyniki.txt', 'r') as file:
+            lines = file.readlines()
+
+        min_wynik = float('inf')  # Inicjalizacja minimalnej wartości jako nieskończoność
+        min_wynik_index = None  # Indeks najmniejszej wartości
+
+        for i, line in enumerate(lines):
+            match = re.search(r'(\d+) pkt', line)
+            if match:
+                stary_wynik = int(match.group(1))
+
+                if stary_wynik < min_wynik:
+                    min_wynik = stary_wynik
+                    min_wynik_index = i
+
+        if int(wynik) > min_wynik:  # Zamiana wyniku na liczbę całkowitą
+            lines[min_wynik_index] = f"{nick} - {wynik} pkt\n"
+
+            with open('wyniki.txt', 'w') as file:
+                file.writelines(lines)
+        else:
+            pass
 
 
 class HardQuantityGameWindow:
@@ -583,6 +680,13 @@ class HardQuantityGameWindow:
                     sprawdzanie.clear()
                     self.root.update()
                     self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                    self.root.update()
+                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.button.wait_variable(self.button_pressed)
+                    self.nick = self.input.get()
+                    self.dodaj_wynik(self.nick, self.wynik)
+
                     self.root.update()
                     self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                     self.button.wait_variable(self.button_pressed)
@@ -599,6 +703,13 @@ class HardQuantityGameWindow:
                 sprawdzanie.clear()
                 self.root.update()
                 self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                self.root.update()
+                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.button.wait_variable(self.button_pressed)
+                self.nick = self.input.get()
+                self.dodaj_wynik(self.nick, self.wynik)
+
                 self.root.update()
                 self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                 self.button.wait_variable(self.button_pressed)
@@ -617,6 +728,13 @@ class HardQuantityGameWindow:
         sprawdzanie.clear()
         self.root.update()
         self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+        self.root.update()
+        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+        self.button.wait_variable(self.button_pressed)
+        self.nick = self.input.get()
+        self.dodaj_wynik(self.nick, self.wynik)
+
         self.root.update()
         self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
         self.button.wait_variable(self.button_pressed)
@@ -627,6 +745,31 @@ class HardQuantityGameWindow:
             HardQuantityGameWindow()
 
         self.root.mainloop()
+
+    def dodaj_wynik(self, nick, wynik):
+
+        with open('wyniki.txt', 'r') as file:
+            lines = file.readlines()
+
+        min_wynik = float('inf')  # Inicjalizacja minimalnej wartości jako nieskończoność
+        min_wynik_index = None  # Indeks najmniejszej wartości
+
+        for i, line in enumerate(lines):
+            match = re.search(r'(\d+) pkt', line)
+            if match:
+                stary_wynik = int(match.group(1))
+
+                if stary_wynik < min_wynik:
+                    min_wynik = stary_wynik
+                    min_wynik_index = i
+
+        if int(wynik) > min_wynik:  # Zamiana wyniku na liczbę całkowitą
+            lines[min_wynik_index] = f"{nick} - {wynik} pkt\n"
+
+            with open('wyniki.txt', 'w') as file:
+                file.writelines(lines)
+        else:
+            pass
 
 
 class EasyTimeGameWindow:
@@ -689,6 +832,13 @@ class EasyTimeGameWindow:
                 sprawdzanie.clear()
                 self.root.update()
                 self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                self.root.update()
+                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.button.wait_variable(self.button_pressed)
+                self.nick = self.input.get()
+                self.dodaj_wynik(self.nick, self.wynik)
+
                 self.root.update()
                 self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                 self.button.wait_variable(self.button_pressed)
@@ -708,6 +858,13 @@ class EasyTimeGameWindow:
                         sprawdzanie.clear()
                         self.root.update()
                         self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                        self.root.update()
+                        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                        self.button.wait_variable(self.button_pressed)
+                        self.nick = self.input.get()
+                        self.dodaj_wynik(self.nick, self.wynik)
+
                         self.root.update()
                         self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                         self.button.wait_variable(self.button_pressed)
@@ -727,6 +884,13 @@ class EasyTimeGameWindow:
                     sprawdzanie.clear()
                     self.root.update()
                     self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                    self.root.update()
+                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.button.wait_variable(self.button_pressed)
+                    self.nick = self.input.get()
+                    self.dodaj_wynik(self.nick, self.wynik)
+
                     self.root.update()
                     self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                     self.button.wait_variable(self.button_pressed)
@@ -737,6 +901,31 @@ class EasyTimeGameWindow:
                         EasyTimeGameWindow()
         
         self.root.mainloop()
+
+    def dodaj_wynik(self, nick, wynik):
+
+        with open('wyniki.txt', 'r') as file:
+            lines = file.readlines()
+
+        min_wynik = float('inf')  # Inicjalizacja minimalnej wartości jako nieskończoność
+        min_wynik_index = None  # Indeks najmniejszej wartości
+
+        for i, line in enumerate(lines):
+            match = re.search(r'(\d+) pkt', line)
+            if match:
+                stary_wynik = int(match.group(1))
+
+                if stary_wynik < min_wynik:
+                    min_wynik = stary_wynik
+                    min_wynik_index = i
+
+        if int(wynik) > min_wynik:  # Zamiana wyniku na liczbę całkowitą
+            lines[min_wynik_index] = f"{nick} - {wynik} pkt\n"
+
+            with open('wyniki.txt', 'w') as file:
+                file.writelines(lines)
+        else:
+            pass
 
 
 class MediumTimeGameWindow:
@@ -799,6 +988,13 @@ class MediumTimeGameWindow:
                 sprawdzanie.clear()
                 self.root.update()
                 self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                self.root.update()
+                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.button.wait_variable(self.button_pressed)
+                self.nick = self.input.get()
+                self.dodaj_wynik(self.nick, self.wynik)
+
                 self.root.update()
                 self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                 self.button.wait_variable(self.button_pressed)
@@ -818,6 +1014,13 @@ class MediumTimeGameWindow:
                         sprawdzanie.clear()
                         self.root.update()
                         self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                        self.root.update()
+                        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                        self.button.wait_variable(self.button_pressed)
+                        self.nick = self.input.get()
+                        self.dodaj_wynik(self.nick, self.wynik)
+
                         self.root.update()
                         self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                         self.button.wait_variable(self.button_pressed)
@@ -837,6 +1040,13 @@ class MediumTimeGameWindow:
                     sprawdzanie.clear()
                     self.root.update()
                     self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                    self.root.update()
+                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.button.wait_variable(self.button_pressed)
+                    self.nick = self.input.get()
+                    self.dodaj_wynik(self.nick, self.wynik)
+
                     self.root.update()
                     self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                     self.button.wait_variable(self.button_pressed)
@@ -847,6 +1057,31 @@ class MediumTimeGameWindow:
                         MediumTimeGameWindow()
 
         self.root.mainloop()
+
+    def dodaj_wynik(self, nick, wynik):
+
+        with open('wyniki.txt', 'r') as file:
+            lines = file.readlines()
+
+        min_wynik = float('inf')  # Inicjalizacja minimalnej wartości jako nieskończoność
+        min_wynik_index = None  # Indeks najmniejszej wartości
+
+        for i, line in enumerate(lines):
+            match = re.search(r'(\d+) pkt', line)
+            if match:
+                stary_wynik = int(match.group(1))
+
+                if stary_wynik < min_wynik:
+                    min_wynik = stary_wynik
+                    min_wynik_index = i
+
+        if int(wynik) > min_wynik:  # Zamiana wyniku na liczbę całkowitą
+            lines[min_wynik_index] = f"{nick} - {wynik} pkt\n"
+
+            with open('wyniki.txt', 'w') as file:
+                file.writelines(lines)
+        else:
+            pass
 
 
 class HardTimeGameWindow:
@@ -909,6 +1144,13 @@ class HardTimeGameWindow:
                 sprawdzanie.clear()
                 self.root.update()
                 self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                self.root.update()
+                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.button.wait_variable(self.button_pressed)
+                self.nick = self.input.get()
+                self.dodaj_wynik(self.nick, self.wynik)
+
                 self.root.update()
                 self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                 self.button.wait_variable(self.button_pressed)
@@ -928,6 +1170,13 @@ class HardTimeGameWindow:
                         sprawdzanie.clear()
                         self.root.update()
                         self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                        self.root.update()
+                        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                        self.button.wait_variable(self.button_pressed)
+                        self.nick = self.input.get()
+                        self.dodaj_wynik(self.nick, self.wynik)
+
                         self.root.update()
                         self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                         self.button.wait_variable(self.button_pressed)
@@ -947,6 +1196,13 @@ class HardTimeGameWindow:
                     sprawdzanie.clear()
                     self.root.update()
                     self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+
+                    self.root.update()
+                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.button.wait_variable(self.button_pressed)
+                    self.nick = self.input.get()
+                    self.dodaj_wynik(self.nick, self.wynik)
+
                     self.root.update()
                     self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
                     self.button.wait_variable(self.button_pressed)
@@ -957,6 +1213,90 @@ class HardTimeGameWindow:
                         HardTimeGameWindow()
 
         self.root.mainloop()
+
+    def dodaj_wynik(self, nick, wynik):
+
+        with open('wyniki.txt', 'r') as file:
+            lines = file.readlines()
+
+        min_wynik = float('inf')  # Inicjalizacja minimalnej wartości jako nieskończoność
+        min_wynik_index = None  # Indeks najmniejszej wartości
+
+        for i, line in enumerate(lines):
+            match = re.search(r'(\d+) pkt', line)
+            if match:
+                stary_wynik = int(match.group(1))
+
+                if stary_wynik < min_wynik:
+                    min_wynik = stary_wynik
+                    min_wynik_index = i
+
+        if int(wynik) > min_wynik:  # Zamiana wyniku na liczbę całkowitą
+            lines[min_wynik_index] = f"{nick} - {wynik} pkt\n"
+
+            with open('wyniki.txt', 'w') as file:
+                file.writelines(lines)
+        else:
+            pass
+
+
+class ScoreWindow:
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}")
+        self.root.title("Memory Słowne")
+        self.root.configure(bg="#79CBF7")
+
+        # Text message
+        self.label = tk.Label(self.root, text="Wyniki:", font=('Arial', 18), fg="#F9E816", bg="#79CBF7")
+        self.label.place(relx=0.44, rely=0.2)
+
+        # Score table
+        self.frame = tk.Frame(self.root, bg="#79CBF7")
+
+        self.frame.rowconfigure(0, weight=1)
+        self.frame.rowconfigure(1, weight=1)
+        self.frame.rowconfigure(2, weight=1)
+
+        # Set each score
+        with open("wyniki.txt", "r") as f:
+            line1 = f.readline()
+            line2 = f.readline()
+            line3 = f.readline()
+
+        self.first_variable = tk.StringVar()
+        self.first_variable.set(f"{line1}")
+        self.first_score = tk.Label(self.frame, textvariable=self.first_variable, font=('Arial', 14),
+                                    fg="#F9E816", bg="#79CBF7")
+        self.first_score.grid(row=0, column=0, padx=10)
+
+        self.second_variable = tk.StringVar()
+        self.second_variable.set(f"{line2}")
+        self.second_score = tk.Label(self.frame, textvariable=self.second_variable, font=('Arial', 14),
+                                    fg="#F9E816", bg="#79CBF7")
+        self.second_score.grid(row=1, column=0, padx=10)
+
+        self.third_variable = tk.StringVar()
+        self.third_variable.set(f"{line3}")
+        self.third_score = tk.Label(self.frame, textvariable=self.third_variable, font=('Arial', 14),
+                                    fg="#F9E816", bg="#79CBF7")
+        self.third_score.grid(row=2, column=0, padx=10)
+
+        # Place the table
+        self.frame.place(relx=0.4, rely=0.3)
+
+        # Return button
+        self.return_form_level_button = tk.Button(self.root, text="Wróć", font=('Arial', 14),
+                                                  command=self.return_from_score_window)
+        self.return_form_level_button.pack(side=RIGHT, padx=50)
+
+        f.close()
+
+        self.root.mainloop()
+
+    def return_from_score_window(self):
+        self.root.destroy()
+        MenuWindow()
 
 
 def main():
