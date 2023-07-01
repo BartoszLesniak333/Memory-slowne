@@ -21,7 +21,7 @@ W grze dostępna jest statystyka wygranych, która pokazuje, ile razy gracz uda�
 
 [**Szymon Lipkowski**](https://github.com/SaJmOOOOOnN) będzie odpowiedzialny za tryb gry:\
 ▶️ Zaprojektowanie trybu gry,\
-▶️ Implementacja trybu gry w kodzie,\
+▶️ Implementacja trybu gry w kodzie
 
 
 <img align="right" alt="Coding" width="400" src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/6203bb58569011.5a01825de3d9b.gif" width="400" height="200">
