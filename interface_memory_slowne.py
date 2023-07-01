@@ -14,15 +14,13 @@ HOW_TO_PLAY_TEXT_PL = 'Cel gry jest prosty: zdobyć jak największą ilość pun
                       ' w pole tekstowe,' \
                       ' a następnie kliknij "Dalej".\nZa każdą dobrą odpowiedź są przydzielane dodatnie punkty,\n' \
                       ' natomiast za błędne ujemne.\nNa sam koniec możesz zobaczyć ile punktów zdobyłeś.\n Powodzenia!'
-latwy = ('test', 'proba')
+
 with open("easy_PL.txt", "r", encoding="utf-8") as ef:
     lines_easy = ef.read()
 
-sredni = ('ojciec', 'wynik')
 with open("medium_PL.txt", "r", encoding="utf-8") as mf:
     lines_medium = mf.read()
 
-trudny = ('walic', 'nie wiem')
 with open("hard_PL.txt", "r", encoding="utf-8") as hf:
     lines_hard = hf.read()
 
