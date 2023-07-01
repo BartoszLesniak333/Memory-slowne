@@ -1,6 +1,6 @@
-House, Day, Dog, Coffee, Dew
-Year, Fire, Water, Forest, Cheap
-Elephant, Sun, Wind, Milk, Grass
-Cinema, Fence, Tree, Book, Flower
-Dot, Face, Hen, Leg, Bridge
-Sand, Garden, Meadow, Wave, Roof
+house, day, dog, coffee, dew
+year, fire, water, forest, cheap
+elephant, sun, wind, milk, grass
+cinema, fence, tree, book, flower
+dot, face, hen, leg, bridge
+sand, garden, meadow, wave, roof
