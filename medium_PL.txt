@@ -1,6 +1,6 @@
-Afront, Kolorofon, Przedszkolak, Skrzydlaty, Łączność
-Rozbrykany, Szczenię, Ośmiokrotnie, Niemyślący, Utrudniać
-Niedouczony, Skrzyżowanie, Obłąkańczy, Zaskakujący, Niepojętność
-Współpracować, Przedziwactwo, Odtwórczość, Niedobrany, Rzekotka
-Obciachowy, Przeszkadzać, Zamieszanie, Różnorodność, Niezrozumiały
-Szkodliwość, Abstrahować, Niedomagać, Wentylator, Leżakować
+afront, kolorofon, przedszkolak, skrzydlaty, łączność
+rozbrykany, szczenię, ośmiokrotnie, niemyślący, utrudniać
+niedouczony, skrzyżowanie, obłąkańczy, zaskakujący, niepojętność
+współpracować, przedziwactwo, odtwórczość, niedobrany, rzekotka
+obciachowy, przeszkadzać, zamieszanie, różnorodność, niezrozumiały
+szkodliwość, abstrahować, niedomagać, wentylator, leżakować
