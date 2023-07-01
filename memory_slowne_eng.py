@@ -2,75 +2,33 @@ import tkinter as tk
 from tkinter import RIGHT, TOP
 import time
 import re
-import memory_slowne_eng
 
 # Constants:
 WINDOW_WIDTH = 900
 WINDOW_HEIGHT = 600
-HOW_TO_PLAY_TEXT_PL = 'Cel gry jest prosty: zdobyć jak największą ilość punktów\n poprzez zapamiętywanie' \
-                      ' oraz poprawne odtwarzanie słów.\nDo wybory są trzy tryby gry: łatwy, średni oraz trudny,\n' \
-                      ' z czego każdy z nich się różni złożonością słów.\n' \
-                      'Po zobaczeniu i zapamiętaniu wyświetlonych słów wprowadź je\n poprzez klawiaturę' \
-                      ' w pole tekstowe,' \
-                      ' a następnie kliknij "Dalej".\nZa każdą dobrą odpowiedź są przydzielane dodatnie punkty,\n' \
-                      ' natomiast za błędne ujemne.\nNa sam koniec możesz zobaczyć ile punktów zdobyłeś.\n Powodzenia!'
-latwy = ('test', 'proba')
-with open("easy_PL.txt", "r", encoding="utf-8") as ef:
+HOW_TO_PLAY_TEXT_PL = 'The goal of this game is simple: get as much points as you can\n through remembering' \
+                      ' and spelling them correctly\nYou can choose between three difficulty levels: easy, medium' \
+                      ' and hard.\n' \
+                      ' Each one has a different set of words.\n' \
+                      'After remembering those words, enter them\n by your keyboard' \
+                      ' into the input aera,' \
+                      ' and then push the Ok button.\nFor each correct answer you get points.\n' \
+                      'At the end of every match you can see your score.\n Good luck!'
+
+with open("easy_ENG.txt", "r", encoding="utf-8") as ef:
     lines_easy = ef.read()
 
-sredni = ('ojciec', 'wynik')
-with open("medium_PL.txt", "r", encoding="utf-8") as mf:
+with open("medium_ENG.txt", "r", encoding="utf-8") as mf:
     lines_medium = mf.read()
 
-trudny = ('walic', 'nie wiem')
-with open("hard_PL.txt", "r", encoding="utf-8") as hf:
+with open("hard_ENG.txt", "r", encoding="utf-8") as hf:
     lines_hard = hf.read()
 
 sprawdzanie = []
 
 
-# Language:
-class LanguageWindow:
-    def __init__(self):
-        self.root = tk.Tk()
-        self.root.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}")
-        self.root.title("Memory Słowne")
-        self.root.configure(bg="#79CBF7")
-
-        # Text and language buttons frame
-        self.frame = tk.Frame(self.root, bg="#79CBF7")
-
-        self.frame.columnconfigure(0, weight=1)
-        self.frame.columnconfigure(1, weight=1)
-        self.frame.columnconfigure(2, weight=1)
-
-        # Text
-        self.settings_message = tk.Label(self.frame, text="Wybierz język:", font=('Arial', 18),
-                                         fg="#F9E816", bg="#79CBF7")
-        self.settings_message.grid(row=0, column=0, padx=15)
-
-        # Language Buttons
-        self.polish_button = tk.Button(self.frame, text="Polski", font=('Arial', 14), command=self.to_polish)
-        self.polish_button.grid(row=0, column=1, padx=10)
-
-        self.english_button = tk.Button(self.frame, text="English", font=('Arial', 14), command=self.to_english)
-        self.english_button.grid(row=0, column=2, padx=10)
-
-        self.frame.pack(side=TOP, pady=200)
-
-        self.root.mainloop()
-
-    def to_polish(self):
-        self.root.destroy()
-        MenuWindowPl()
-
-    def to_english(self):
-        self.root.destroy()
-        memory_slowne_eng.MenuWindowEng()
-
-
 # Windows:
-class MenuWindowPl:
+class MenuWindowEng:
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}")
@@ -90,7 +48,7 @@ class MenuWindowPl:
                                       font=("Arial", 14), command=self.start_window)
         self.start_button.grid(row=0, column=0, padx=5)
 
-        self.how_to_play_button = tk.Button(self.button_frame_first_row, text="Jak grać",
+        self.how_to_play_button = tk.Button(self.button_frame_first_row, text="How to play",
                                             font=("Arial", 14), command=self.how_to_play_window)
         self.how_to_play_button.grid(row=0, column=1, padx=5)
 
@@ -102,11 +60,11 @@ class MenuWindowPl:
         self.button_frame_second_row.columnconfigure(0, weight=1)
         self.button_frame_second_row.columnconfigure(1, weight=1)
 
-        self.score_button = tk.Button(self.button_frame_second_row, text="Wynik", font=("Arial", 14),
+        self.score_button = tk.Button(self.button_frame_second_row, text="Scores", font=("Arial", 14),
                                       command=self.score)
         self.score_button.grid(row=0, column=0, padx=5, pady=10)
 
-        self.quit_button = tk.Button(self.button_frame_second_row, text="Wyjście",
+        self.quit_button = tk.Button(self.button_frame_second_row, text="Quit",
                                      font=("Arial", 14), command=self.root.destroy)
         self.quit_button.grid(row=0, column=1, padx=5, pady=10)
 
@@ -139,7 +97,7 @@ class HowToPlayWindow:
         self.how_to_play_message.pack(side=TOP, pady=100)
 
         # Return button
-        self.return_button = tk.Button(self.root, text="Wróć", font=("Arial", 14),
+        self.return_button = tk.Button(self.root, text="Return", font=("Arial", 14),
                                        command=self.return_from_how_to_play_window)
         self.return_button.pack(side=RIGHT, padx=50)
 
@@ -147,7 +105,7 @@ class HowToPlayWindow:
 
     def return_from_how_to_play_window(self):
         self.root.destroy()
-        MenuWindowPl()
+        MenuWindowEng()
 
 
 class StartWindow:
@@ -158,7 +116,7 @@ class StartWindow:
         self.root.configure(bg="#79CBF7")
 
         # Text message
-        self.start_message = tk.Label(self.root, text="Wybierz tryb gry:", font=('Arial', 18),
+        self.start_message = tk.Label(self.root, text="Choose a game mode:", font=('Arial', 18),
                                       fg="#F9E816", bg="#79CBF7")
         self.start_message.place(relx=0.38, rely=0.2)
 
@@ -169,17 +127,17 @@ class StartWindow:
         self.buttons_frame.columnconfigure(1, weight=1)
 
         # Game mode buttons
-        self.quantity_button = tk.Button(self.buttons_frame, text="Na ilość", font=('Arial', 14), command=self.quantity)
+        self.quantity_button = tk.Button(self.buttons_frame, text="Quantity", font=('Arial', 14), command=self.quantity)
         self.quantity_button.grid(row=0, column=0, padx=10)
 
-        self.time_button = tk.Button(self.buttons_frame, text="Na czas", font=('Arial', 14), command=self.time)
+        self.time_button = tk.Button(self.buttons_frame, text="Time", font=('Arial', 14), command=self.time)
         self.time_button.grid(row=0, column=1)
 
         # Draw frame with buttons
-        self.buttons_frame.place(relx=0.37, rely=0.3)
+        self.buttons_frame.place(relx=0.42, rely=0.3)
 
         # Return button
-        self.return_form_start_button = tk.Button(self.root, text="Wróć", font=('Arial', 14),
+        self.return_form_start_button = tk.Button(self.root, text="Return", font=('Arial', 14),
                                                   command=self.return_from_start_window)
         self.return_form_start_button.pack(side=RIGHT, padx=50)
 
@@ -187,7 +145,7 @@ class StartWindow:
 
     def return_from_start_window(self):
         self.root.destroy()
-        MenuWindowPl()
+        MenuWindowEng()
 
     def quantity(self):
         self.root.destroy()
@@ -206,7 +164,7 @@ class LevelFromQuantity:
         self.root.configure(bg="#79CBF7")
 
         # Text message
-        self.level_from_quantity_message = tk.Label(self.root, text="Wybierz poziom trudności:", font=('Arial', 18),
+        self.level_from_quantity_message = tk.Label(self.root, text="Choose a difficulty level:", font=('Arial', 18),
                                                     fg="#F9E816", bg="#79CBF7")
         self.level_from_quantity_message.place(relx=0.35, rely=0.2)
 
@@ -218,22 +176,22 @@ class LevelFromQuantity:
         self.buttons_frame.columnconfigure(2, weight=1)
 
         # Game level buttons
-        self.easy_button = tk.Button(self.buttons_frame, text="Łatwy",
+        self.easy_button = tk.Button(self.buttons_frame, text="Easy",
                                      font=('Arial', 14), command=self.easy_quantity)
         self.easy_button.grid(row=0, column=0, padx=10)
 
-        self.medium_button = tk.Button(self.buttons_frame, text="Średni",
+        self.medium_button = tk.Button(self.buttons_frame, text="Medium",
                                        font=('Arial', 14), command=self.medium_quantity)
         self.medium_button.grid(row=0, column=1)
 
-        self.hard_button = tk.Button(self.buttons_frame, text="Trudny", font=('Arial', 14), command=self.hard_quantity)
+        self.hard_button = tk.Button(self.buttons_frame, text="Hard", font=('Arial', 14), command=self.hard_quantity)
         self.hard_button.grid(row=0, column=2, padx=10)
 
         # Draw frame with buttons
         self.buttons_frame.place(relx=0.37, rely=0.3)
 
         # Return button
-        self.return_form_level_button = tk.Button(self.root, text="Wróć", font=('Arial', 14),
+        self.return_form_level_button = tk.Button(self.root, text="Return", font=('Arial', 14),
                                                   command=self.return_from_level_window)
         self.return_form_level_button.pack(side=RIGHT, padx=50)
 
@@ -264,7 +222,7 @@ class LevelFromTime:
         self.root.configure(bg="#79CBF7")
 
         # Text message
-        self.level_from_quantity_message = tk.Label(self.root, text="Wybierz poziom trudności:", font=('Arial', 18),
+        self.level_from_quantity_message = tk.Label(self.root, text="Choose a difficulty level:", font=('Arial', 18),
                                                     fg="#F9E816", bg="#79CBF7")
         self.level_from_quantity_message.place(relx=0.35, rely=0.2)
 
@@ -276,20 +234,20 @@ class LevelFromTime:
         self.buttons_frame.columnconfigure(2, weight=1)
 
         # Game level buttons
-        self.easy_button = tk.Button(self.buttons_frame, text="Łatwy", font=('Arial', 14), command=self.easy_time)
+        self.easy_button = tk.Button(self.buttons_frame, text="Easy", font=('Arial', 14), command=self.easy_time)
         self.easy_button.grid(row=0, column=0, padx=10)
 
-        self.medium_button = tk.Button(self.buttons_frame, text="Średni", font=('Arial', 14), command=self.medium_time)
+        self.medium_button = tk.Button(self.buttons_frame, text="Medium", font=('Arial', 14), command=self.medium_time)
         self.medium_button.grid(row=0, column=1)
 
-        self.hard_button = tk.Button(self.buttons_frame, text="Trudny", font=('Arial', 14), command=self.hard_time)
+        self.hard_button = tk.Button(self.buttons_frame, text="Hard", font=('Arial', 14), command=self.hard_time)
         self.hard_button.grid(row=0, column=2, padx=10)
 
         # Draw frame with buttons
         self.buttons_frame.place(relx=0.37, rely=0.3)
 
         # Return button
-        self.return_form_level_button = tk.Button(self.root, text="Wróć", font=('Arial', 14),
+        self.return_form_level_button = tk.Button(self.root, text="Return", font=('Arial', 14),
                                                   command=self.return_from_level_window)
         self.return_form_level_button.pack(side=RIGHT, padx=50)
 
@@ -325,7 +283,7 @@ class EasyQuantityGameWindow:
 
         # Text
         self.str = tk.StringVar(self.root)
-        self.str.set("Zapamiętaj słowa masz na to 5 min.")
+        self.str.set("Remember these words. You have 5 min.")
         self.text = tk.Label(self.root, textvariable=self.str, font=('Arial', 18), fg="#F9E816", bg="#79CBF7")
         self.text.pack(pady=40)
 
@@ -346,7 +304,7 @@ class EasyQuantityGameWindow:
         self.text.after(3000, self.str.set(f"{lines_easy}"))
 
         self.root.update()
-        self.text.after(300000, self.str.set("Powodzenia"))
+        self.text.after(300000, self.str.set("Good luck"))
 
         self.root.update()
         self.text.after(1000, self.str.set("3"))
@@ -358,7 +316,7 @@ class EasyQuantityGameWindow:
         self.text.after(1000, self.str.set("1"))
 
         self.root.update()
-        self.text.after(1000, self.str.set("Podaj słowo:"))
+        self.text.after(1000, self.str.set("Enter your word:"))
 
         self.wynik = 0
         self.x = 0
@@ -370,71 +328,71 @@ class EasyQuantityGameWindow:
             for i in range(0, self.m):
                 if self.slowo == sprawdzanie[i]:
                     self.root.update()
-                    self.text.after(3000, self.str.set("Powtórzone słowo"))
+                    self.text.after(3000, self.str.set("Repeated word"))
                     sprawdzanie.clear()
                     self.root.update()
-                    self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                    self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.text.after(3000, self.str.set("Enter your nick to save the score"))
                     self.button.wait_variable(self.button_pressed)
                     self.nick = self.input.get()
                     self.dodaj_wynik(self.nick, self.wynik)
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                    self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                     self.button.wait_variable(self.button_pressed)
-                    if self.input.get() == "Tak" or self.input.get() == "tak":
+                    if self.input.get() == "Yes" or self.input.get() == "yes":
                         self.root.destroy()
-                    elif self.input.get() == "Nie" or self.input.get() == "nie":
+                    elif self.input.get() == "No" or self.input.get() == "no":
                         self.root.destroy()
                         EasyQuantityGameWindow()
             if self.slowo in lines_easy:
                 self.wynik += 1
             else:
                 self.root.update()
-                self.text.after(1000, self.str.set("Zła odpowiedź"))
+                self.text.after(1000, self.str.set("Wrong answer"))
                 sprawdzanie.clear()
                 self.root.update()
-                self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.text.after(3000, self.str.set("Enter your nick to save the score"))
                 self.button.wait_variable(self.button_pressed)
                 self.nick = self.input.get()
                 self.dodaj_wynik(self.nick, self.wynik)
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                 self.button.wait_variable(self.button_pressed)
-                if self.input.get() == "Tak" or self.input.get() == "tak":
+                if self.input.get() == "Yes" or self.input.get() == "yes":
                     self.root.destroy()
-                elif self.input.get() == "Nie" or self.input.get() == "nie":
+                elif self.input.get() == "No" or self.input.get() == "no":
                     self.root.destroy()
                     EasyQuantityGameWindow()
             sprawdzanie.append(self.slowo)
             self.root.update()
-            self.text.after(1000, self.str.set("Dobra odpowiedź"))
+            self.text.after(1000, self.str.set("Correct answer"))
             self.x += 1
             if self.x < self.n:
                 self.root.update()
-                self.text.after(3000, self.str.set("Podaj kolejną odpowiedź:"))
+                self.text.after(3000, self.str.set("Enter next answer"))
         sprawdzanie.clear()
         self.root.update()
-        self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+        self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
         self.root.update()
-        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+        self.text.after(3000, self.str.set("Enter your nick to save the score"))
         self.button.wait_variable(self.button_pressed)
         self.nick = self.input.get()
         self.dodaj_wynik(self.nick, self.wynik)
 
         self.root.update()
-        self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+        self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
         self.button.wait_variable(self.button_pressed)
-        if self.input.get() == "Tak" or self.input.get() == "tak":
+        if self.input.get() == "Yes" or self.input.get() == "yes":
             self.root.destroy()
-        elif self.input.get() == "Nie" or self.input.get() == "nie":
+        elif self.input.get() == "No" or self.input.get() == "nie":
             self.root.destroy()
             EasyQuantityGameWindow()
 
@@ -479,7 +437,7 @@ class MediumQuantityGameWindow:
 
         # Text
         self.str = tk.StringVar(self.root)
-        self.str.set("Zapamiętaj słowa masz na to 5 min.")
+        self.str.set("Remember these words. You have 5 min.")
         self.text = tk.Label(self.root, textvariable=self.str, font=('Arial', 18), fg="#F9E816", bg="#79CBF7")
         self.text.pack(pady=40)
 
@@ -500,7 +458,7 @@ class MediumQuantityGameWindow:
         self.text.after(3000, self.str.set(f"{lines_medium}"))
 
         self.root.update()
-        self.text.after(300000, self.str.set("Powodzenia"))
+        self.text.after(300000, self.str.set("Good luck"))
 
         self.root.update()
         self.text.after(1000, self.str.set("3"))
@@ -512,7 +470,7 @@ class MediumQuantityGameWindow:
         self.text.after(1000, self.str.set("1"))
 
         self.root.update()
-        self.text.after(1000, self.str.set("Podaj słowo:"))
+        self.text.after(1000, self.str.set("Enter your word:"))
 
         self.wynik = 0
         self.x = 0
@@ -524,71 +482,71 @@ class MediumQuantityGameWindow:
             for i in range(0, self.m):
                 if self.slowo == sprawdzanie[i]:
                     self.root.update()
-                    self.text.after(3000, self.str.set("Powtórzone słowo"))
+                    self.text.after(3000, self.str.set("Repeated word"))
                     sprawdzanie.clear()
                     self.root.update()
-                    self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                    self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.text.after(3000, self.str.set("Enter your nick to save the score"))
                     self.button.wait_variable(self.button_pressed)
                     self.nick = self.input.get()
                     self.dodaj_wynik(self.nick, self.wynik)
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                    self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                     self.button.wait_variable(self.button_pressed)
-                    if self.input.get() == "Tak" or self.input.get() == "tak":
+                    if self.input.get() == "Yes" or self.input.get() == "yes":
                         self.root.destroy()
-                    elif self.input.get() == "Nie" or self.input.get() == "nie":
+                    elif self.input.get() == "No" or self.input.get() == "nie":
                         self.root.destroy()
                         MediumQuantityGameWindow()
             if self.slowo in lines_medium:
                 self.wynik += 1
             else:
                 self.root.update()
-                self.text.after(1000, self.str.set("Zła odpowiedź"))
+                self.text.after(1000, self.str.set("Wrong answer"))
                 sprawdzanie.clear()
                 self.root.update()
-                self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.text.after(3000, self.str.set("Enter your nick to save the score"))
                 self.button.wait_variable(self.button_pressed)
                 self.nick = self.input.get()
                 self.dodaj_wynik(self.nick, self.wynik)
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                 self.button.wait_variable(self.button_pressed)
-                if self.input.get() == "Tak" or self.input.get() == "tak":
+                if self.input.get() == "Yes" or self.input.get() == "yes":
                     self.root.destroy()
-                elif self.input.get() == "Nie" or self.input.get() == "nie":
+                elif self.input.get() == "No" or self.input.get() == "nie":
                     self.root.destroy()
                     MediumQuantityGameWindow()
             sprawdzanie.append(self.slowo)
             self.root.update()
-            self.text.after(1000, self.str.set("Dobra odpowiedź"))
+            self.text.after(1000, self.str.set("Correct answer"))
             self.x += 1
             if self.x < self.n:
                 self.root.update()
-                self.text.after(3000, self.str.set("Podaj kolejną odpowiedź:"))
+                self.text.after(3000, self.str.set("Enter next answer"))
         sprawdzanie.clear()
         self.root.update()
-        self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+        self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
         self.root.update()
-        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+        self.text.after(3000, self.str.set("Enter your nick to save the score"))
         self.button.wait_variable(self.button_pressed)
         self.nick = self.input.get()
         self.dodaj_wynik(self.nick, self.wynik)
 
         self.root.update()
-        self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+        self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
         self.button.wait_variable(self.button_pressed)
-        if self.input.get() == "Tak" or self.input.get() == "tak":
+        if self.input.get() == "Yes" or self.input.get() == "yes":
             self.root.destroy()
-        elif self.input.get() == "Nie" or self.input.get() == "nie":
+        elif self.input.get() == "No" or self.input.get() == "nie":
             self.root.destroy()
             MediumQuantityGameWindow()
 
@@ -633,7 +591,7 @@ class HardQuantityGameWindow:
 
         # Text
         self.str = tk.StringVar(self.root)
-        self.str.set("Zapamiętaj słowa masz na to 5 min.")
+        self.str.set("Remember these words. You have 5 min.")
         self.text = tk.Label(self.root, textvariable=self.str, font=('Arial', 18), fg="#F9E816", bg="#79CBF7")
         self.text.pack(pady=40)
 
@@ -654,7 +612,7 @@ class HardQuantityGameWindow:
         self.text.after(3000, self.str.set(f"{lines_hard}"))
 
         self.root.update()
-        self.text.after(300000, self.str.set("Powodzenia"))
+        self.text.after(300000, self.str.set("Good luck"))
 
         self.root.update()
         self.text.after(1000, self.str.set("3"))
@@ -666,7 +624,7 @@ class HardQuantityGameWindow:
         self.text.after(1000, self.str.set("1"))
 
         self.root.update()
-        self.text.after(1000, self.str.set("Podaj słowo:"))
+        self.text.after(1000, self.str.set("Enter your word:"))
 
         self.wynik = 0
         self.x = 0
@@ -678,71 +636,71 @@ class HardQuantityGameWindow:
             for i in range(0, self.m):
                 if self.slowo == sprawdzanie[i]:
                     self.root.update()
-                    self.text.after(3000, self.str.set("Powtórzone słowo"))
+                    self.text.after(3000, self.str.set("Repeated word"))
                     sprawdzanie.clear()
                     self.root.update()
-                    self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                    self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.text.after(3000, self.str.set("Enter your nick to save the score"))
                     self.button.wait_variable(self.button_pressed)
                     self.nick = self.input.get()
                     self.dodaj_wynik(self.nick, self.wynik)
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                    self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                     self.button.wait_variable(self.button_pressed)
-                    if self.input.get() == "Tak" or self.input.get() == "tak":
+                    if self.input.get() == "Yes" or self.input.get() == "yes":
                         self.root.destroy()
-                    elif self.input.get() == "Nie" or self.input.get() == "nie":
+                    elif self.input.get() == "No" or self.input.get() == "no":
                         self.root.destroy()
                         HardQuantityGameWindow()
             if self.slowo in lines_hard:
                 self.wynik += 1
             else:
                 self.root.update()
-                self.text.after(1000, self.str.set("Zła odpowiedź"))
+                self.text.after(1000, self.str.set("Wrong answer"))
                 sprawdzanie.clear()
                 self.root.update()
-                self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.text.after(3000, self.str.set("Enter your nick to save the score"))
                 self.button.wait_variable(self.button_pressed)
                 self.nick = self.input.get()
                 self.dodaj_wynik(self.nick, self.wynik)
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                 self.button.wait_variable(self.button_pressed)
-                if self.input.get() == "Tak" or self.input.get() == "tak":
+                if self.input.get() == "Yes" or self.input.get() == "yes":
                     self.root.destroy()
-                elif self.input.get() == "Nie" or self.input.get() == "nie":
+                elif self.input.get() == "No" or self.input.get() == "no":
                     self.root.destroy()
                     HardQuantityGameWindow()
             sprawdzanie.append(self.slowo)
             self.root.update()
-            self.text.after(1000, self.str.set("Dobra odpowiedź"))
+            self.text.after(1000, self.str.set("Correct answer"))
             self.x += 1
             if self.x < self.n:
                 self.root.update()
-                self.text.after(3000, self.str.set("Podaj kolejną odpowiedź:"))
+                self.text.after(3000, self.str.set("Enter next answer"))
         sprawdzanie.clear()
         self.root.update()
-        self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+        self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
         self.root.update()
-        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+        self.text.after(3000, self.str.set("Enter your nick to save the score"))
         self.button.wait_variable(self.button_pressed)
         self.nick = self.input.get()
         self.dodaj_wynik(self.nick, self.wynik)
 
         self.root.update()
-        self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+        self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
         self.button.wait_variable(self.button_pressed)
-        if self.input.get() == "Tak" or self.input.get() == "tak":
+        if self.input.get() == "Yes" or self.input.get() == "yes":
             self.root.destroy()
-        elif self.input.get() == "Nie" or self.input.get() == "nie":
+        elif self.input.get() == "No" or self.input.get() == "no":
             self.root.destroy()
             HardQuantityGameWindow()
 
@@ -787,7 +745,7 @@ class EasyTimeGameWindow:
 
         # Text
         self.str = tk.StringVar(self.root)
-        self.str.set("Zapamiętaj słowa masz na to 5 min.")
+        self.str.set("Remember these words. You have 5 min.")
         self.text = tk.Label(self.root, textvariable=self.str, font=('Arial', 18), fg="#F9E816", bg="#79CBF7")
         self.text.pack(pady=40)
 
@@ -802,13 +760,13 @@ class EasyTimeGameWindow:
         self.button.place(relx=0.7, rely=0.55)
 
         # Szymon's code implementation
-        self.n = len(latwy)
+        self.n = len(lines_easy)
 
         self.root.update()
-        self.text.after(3000, self.str.set(f"{latwy}"))
+        self.text.after(3000, self.str.set(f"{lines_easy}"))
 
         self.root.update()
-        self.text.after(300000, self.str.set("Powodzenia"))
+        self.text.after(300000, self.str.set("Good luck"))
 
         self.root.update()
         self.text.after(1000, self.str.set("3"))
@@ -820,7 +778,7 @@ class EasyTimeGameWindow:
         self.text.after(1000, self.str.set("1"))
 
         self.root.update()
-        self.text.after(1000, self.str.set("Podaj słowo:"))
+        self.text.after(1000, self.str.set("Enter your word:"))
 
         self.wynik = 0
         self.t1 = time.time()
@@ -830,23 +788,23 @@ class EasyTimeGameWindow:
             self.t2 = time.time()
             if self.t2 - self.t1 >= 900:
                 self.root.update()
-                self.text.after(3000, self.str.set("Czas się skończył"))
+                self.text.after(3000, self.str.set("Time has run out"))
                 sprawdzanie.clear()
                 self.root.update()
-                self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.text.after(3000, self.str.set("Enter your nick to save the score"))
                 self.button.wait_variable(self.button_pressed)
                 self.nick = self.input.get()
                 self.dodaj_wynik(self.nick, self.wynik)
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                 self.button.wait_variable(self.button_pressed)
-                if self.input.get() == "Tak" or self.input.get() == "tak":
+                if self.input.get() == "Yes" or self.input.get() == "yes":
                     self.root.destroy()
-                elif self.input.get() == "Nie" or self.input.get() == "nie":
+                elif self.input.get() == "No" or self.input.get() == "no":
                     self.root.destroy()
                     EasyTimeGameWindow()
             elif self.t2 - self.t1 <= 900:
@@ -856,52 +814,52 @@ class EasyTimeGameWindow:
                 for i in range(0, self.m):
                     if self.slowo == sprawdzanie[i]:
                         self.root.update()
-                        self.text.after(3000, self.str.set("Powtórzone słowo"))
+                        self.text.after(3000, self.str.set("Repeated word"))
                         sprawdzanie.clear()
                         self.root.update()
-                        self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                        self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                         self.root.update()
-                        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                        self.text.after(3000, self.str.set("Enter your nick to save the score"))
                         self.button.wait_variable(self.button_pressed)
                         self.nick = self.input.get()
                         self.dodaj_wynik(self.nick, self.wynik)
 
                         self.root.update()
-                        self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                        self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                         self.button.wait_variable(self.button_pressed)
-                        if self.input.get() == "Tak" or self.input.get() == "tak":
+                        if self.input.get() == "Yes" or self.input.get() == "yes":
                             self.root.destroy()
-                        elif self.input.get() == "Nie" or self.input.get() == "nie":
+                        elif self.input.get() == "No" or self.input.get() == "nie":
                             self.root.destroy()
                             EasyTimeGameWindow()
-                if self.slowo in latwy:
+                if self.slowo in lines_easy:
                     self.wynik += 1
                     sprawdzanie.append(self.slowo)
                     self.root.update()
-                    self.text.after(1000, self.str.set("Dobra odpowiedź"))
+                    self.text.after(1000, self.str.set("Correct answer"))
                 else:
                     self.root.update()
-                    self.text.after(1000, self.str.set("Zła odpowiedź"))
+                    self.text.after(1000, self.str.set("Wrong answer"))
                     sprawdzanie.clear()
                     self.root.update()
-                    self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                    self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.text.after(3000, self.str.set("Enter your nick to save the score"))
                     self.button.wait_variable(self.button_pressed)
                     self.nick = self.input.get()
                     self.dodaj_wynik(self.nick, self.wynik)
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                    self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                     self.button.wait_variable(self.button_pressed)
-                    if self.input.get() == "Tak" or self.input.get() == "tak":
+                    if self.input.get() == "Yes" or self.input.get() == "yes":
                         self.root.destroy()
-                    elif self.input.get() == "Nie" or self.input.get() == "nie":
+                    elif self.input.get() == "No" or self.input.get() == "no":
                         self.root.destroy()
                         EasyTimeGameWindow()
-        
+
         self.root.mainloop()
 
     def dodaj_wynik(self, nick, wynik):
@@ -943,7 +901,7 @@ class MediumTimeGameWindow:
 
         # Text
         self.str = tk.StringVar(self.root)
-        self.str.set("Zapamiętaj słowa masz na to 5 min.")
+        self.str.set("Remember these words. You have 5 min.")
         self.text = tk.Label(self.root, textvariable=self.str, font=('Arial', 18), fg="#F9E816", bg="#79CBF7")
         self.text.pack(pady=40)
 
@@ -964,7 +922,7 @@ class MediumTimeGameWindow:
         self.text.after(3000, self.str.set(f"{lines_medium}"))
 
         self.root.update()
-        self.text.after(300000, self.str.set("Powodzenia"))
+        self.text.after(300000, self.str.set("Good luck"))
 
         self.root.update()
         self.text.after(1000, self.str.set("3"))
@@ -976,7 +934,7 @@ class MediumTimeGameWindow:
         self.text.after(1000, self.str.set("1"))
 
         self.root.update()
-        self.text.after(1000, self.str.set("Podaj słowo:"))
+        self.text.after(1000, self.str.set("Enter your word:"))
 
         self.wynik = 0
         self.t1 = time.time()
@@ -986,23 +944,23 @@ class MediumTimeGameWindow:
             self.t2 = time.time()
             if self.t2 - self.t1 >= 720:
                 self.root.update()
-                self.text.after(3000, self.str.set("Czas się skończył"))
+                self.text.after(3000, self.str.set("Time has run out"))
                 sprawdzanie.clear()
                 self.root.update()
-                self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.text.after(3000, self.str.set("Enter your nick to save the score"))
                 self.button.wait_variable(self.button_pressed)
                 self.nick = self.input.get()
                 self.dodaj_wynik(self.nick, self.wynik)
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                 self.button.wait_variable(self.button_pressed)
-                if self.input.get() == "Tak" or self.input.get() == "tak":
+                if self.input.get() == "Yes" or self.input.get() == "yes":
                     self.root.destroy()
-                elif self.input.get() == "Nie" or self.input.get() == "nie":
+                elif self.input.get() == "No" or self.input.get() == "no":
                     self.root.destroy()
                     MediumTimeGameWindow()
             elif self.t2 - self.t1 <= 720:
@@ -1012,49 +970,49 @@ class MediumTimeGameWindow:
                 for i in range(0, self.m):
                     if self.slowo == sprawdzanie[i]:
                         self.root.update()
-                        self.text.after(3000, self.str.set("Powtórzone słowo"))
+                        self.text.after(3000, self.str.set("Repeated word"))
                         sprawdzanie.clear()
                         self.root.update()
-                        self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                        self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                         self.root.update()
-                        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                        self.text.after(3000, self.str.set("Enter your nick to save the score"))
                         self.button.wait_variable(self.button_pressed)
                         self.nick = self.input.get()
                         self.dodaj_wynik(self.nick, self.wynik)
 
                         self.root.update()
-                        self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                        self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                         self.button.wait_variable(self.button_pressed)
-                        if self.input.get() == "Tak" or self.input.get() == "tak":
+                        if self.input.get() == "Yes" or self.input.get() == "yes":
                             self.root.destroy()
-                        elif self.input.get() == "Nie" or self.input.get() == "nie":
+                        elif self.input.get() == "No" or self.input.get() == "no":
                             self.root.destroy()
                             MediumTimeGameWindow()
                 if self.slowo in lines_medium:
                     self.wynik += 1
                     sprawdzanie.append(self.slowo)
                     self.root.update()
-                    self.text.after(1000, self.str.set("Dobra odpowiedź"))
+                    self.text.after(1000, self.str.set("Correct answer"))
                 else:
                     self.root.update()
-                    self.text.after(1000, self.str.set("Zła odpowiedź"))
+                    self.text.after(1000, self.str.set("Wrong answer"))
                     sprawdzanie.clear()
                     self.root.update()
-                    self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                    self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.text.after(3000, self.str.set("Enter your nick to save the score"))
                     self.button.wait_variable(self.button_pressed)
                     self.nick = self.input.get()
                     self.dodaj_wynik(self.nick, self.wynik)
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                    self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                     self.button.wait_variable(self.button_pressed)
-                    if self.input.get() == "Tak" or self.input.get() == "tak":
+                    if self.input.get() == "Yes" or self.input.get() == "yes":
                         self.root.destroy()
-                    elif self.input.get() == "Nie" or self.input.get() == "nie":
+                    elif self.input.get() == "No" or self.input.get() == "no":
                         self.root.destroy()
                         MediumTimeGameWindow()
 
@@ -1099,7 +1057,7 @@ class HardTimeGameWindow:
 
         # Text
         self.str = tk.StringVar(self.root)
-        self.str.set("Zapamiętaj słowa masz na to 5 min.")
+        self.str.set("Remember these words. You have 5 min.")
         self.text = tk.Label(self.root, textvariable=self.str, font=('Arial', 18), fg="#F9E816", bg="#79CBF7")
         self.text.pack(pady=40)
 
@@ -1120,7 +1078,7 @@ class HardTimeGameWindow:
         self.text.after(3000, self.str.set(f"{lines_hard}"))
 
         self.root.update()
-        self.text.after(300000, self.str.set("Powodzenia"))
+        self.text.after(300000, self.str.set("Good luck"))
 
         self.root.update()
         self.text.after(1000, self.str.set("3"))
@@ -1132,7 +1090,7 @@ class HardTimeGameWindow:
         self.text.after(1000, self.str.set("1"))
 
         self.root.update()
-        self.text.after(1000, self.str.set("Podaj słowo:"))
+        self.text.after(1000, self.str.set("Enter your word:"))
 
         self.wynik = 0
         self.t1 = time.time()
@@ -1142,23 +1100,23 @@ class HardTimeGameWindow:
             self.t2 = time.time()
             if self.t2 - self.t1 >= 600:
                 self.root.update()
-                self.text.after(3000, self.str.set("Czas się skończył"))
+                self.text.after(3000, self.str.set("Time has run out"))
                 sprawdzanie.clear()
                 self.root.update()
-                self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                self.text.after(3000, self.str.set("Enter your nick to save the score"))
                 self.button.wait_variable(self.button_pressed)
                 self.nick = self.input.get()
                 self.dodaj_wynik(self.nick, self.wynik)
 
                 self.root.update()
-                self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                 self.button.wait_variable(self.button_pressed)
-                if self.input.get() == "Tak" or self.input.get() == "tak":
+                if self.input.get() == "Yes" or self.input.get() == "yes":
                     self.root.destroy()
-                elif self.input.get() == "Nie" or self.input.get() == "nie":
+                elif self.input.get() == "No" or self.input.get() == "no":
                     self.root.destroy()
                     HardTimeGameWindow()
             elif self.t2 - self.t1 <= 600:
@@ -1168,49 +1126,49 @@ class HardTimeGameWindow:
                 for i in range(0, self.m):
                     if self.slowo == sprawdzanie[i]:
                         self.root.update()
-                        self.text.after(3000, self.str.set("Powtórzone słowo"))
+                        self.text.after(3000, self.str.set("Repeated word"))
                         sprawdzanie.clear()
                         self.root.update()
-                        self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                        self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                         self.root.update()
-                        self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                        self.text.after(3000, self.str.set("Enter your nick to save the score"))
                         self.button.wait_variable(self.button_pressed)
                         self.nick = self.input.get()
                         self.dodaj_wynik(self.nick, self.wynik)
 
                         self.root.update()
-                        self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                        self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                         self.button.wait_variable(self.button_pressed)
-                        if self.input.get() == "Tak" or self.input.get() == "tak":
+                        if self.input.get() == "Yes" or self.input.get() == "yes":
                             self.root.destroy()
-                        elif self.input.get() == "Nie" or self.input.get() == "nie":
+                        elif self.input.get() == "No" or self.input.get() == "no":
                             self.root.destroy()
                             HardTimeGameWindow()
                 if self.slowo in lines_hard:
                     self.wynik += 1
                     sprawdzanie.append(self.slowo)
                     self.root.update()
-                    self.text.after(1000, self.str.set("Dobra odpowiedź"))
+                    self.text.after(1000, self.str.set("Correct answer"))
                 else:
                     self.root.update()
-                    self.text.after(1000, self.str.set("Zła odpowiedź"))
+                    self.text.after(1000, self.str.set("Wrong answer"))
                     sprawdzanie.clear()
                     self.root.update()
-                    self.text.after(3000, self.str.set(f"Ostateczny wynik: {self.wynik} pkt"))
+                    self.text.after(3000, self.str.set(f"Final score: {self.wynik} points"))
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Podaj swój nick aby zapisać wynik:"))
+                    self.text.after(3000, self.str.set("Enter your nick to save the score"))
                     self.button.wait_variable(self.button_pressed)
                     self.nick = self.input.get()
                     self.dodaj_wynik(self.nick, self.wynik)
 
                     self.root.update()
-                    self.text.after(3000, self.str.set("Czy chcesz wyjść z gry? Odpowiedz Tak/Nie"))
+                    self.text.after(3000, self.str.set("Do you want to quit the game? Answer Yes/No"))
                     self.button.wait_variable(self.button_pressed)
-                    if self.input.get() == "Tak" or self.input.get() == "tak":
+                    if self.input.get() == "Yes" or self.input.get() == "yes":
                         self.root.destroy()
-                    elif self.input.get() == "Nie" or self.input.get() == "nie":
+                    elif self.input.get() == "No" or self.input.get() == "no":
                         self.root.destroy()
                         HardTimeGameWindow()
 
@@ -1250,8 +1208,8 @@ class ScoreWindow:
         self.root.configure(bg="#79CBF7")
 
         # Text message
-        self.label = tk.Label(self.root, text="Wyniki:", font=('Arial', 18), fg="#F9E816", bg="#79CBF7")
-        self.label.place(relx=0.44, rely=0.2)
+        self.label = tk.Label(self.root, text="Scores:", font=('Arial', 18), fg="#F9E816", bg="#79CBF7")
+        self.label.place(relx=0.43, rely=0.2)
 
         # Score table
         self.frame = tk.Frame(self.root, bg="#79CBF7")
@@ -1288,7 +1246,7 @@ class ScoreWindow:
         self.frame.place(relx=0.4, rely=0.3)
 
         # Return button
-        self.return_form_level_button = tk.Button(self.root, text="Wróć", font=('Arial', 14),
+        self.return_form_level_button = tk.Button(self.root, text="Return", font=('Arial', 14),
                                                   command=self.return_from_score_window)
         self.return_form_level_button.pack(side=RIGHT, padx=50)
 
@@ -1298,12 +1256,4 @@ class ScoreWindow:
 
     def return_from_score_window(self):
         self.root.destroy()
-        MenuWindowPl()
-
-
-def main():
-    LanguageWindow()
-
-
-if __name__ == "__main__":
-    main()
+        MenuWindowEng()
