@@ -1,6 +1,6 @@
-Dom, Dzień, Pies, Kawa, Rosa
-Rok, Ogień, Woda, Las, Tanie
-Słoń, Słońce, Wiatr, Mleko, Trawa
-Kino, Płot, Drzewo, Książka, Kwiat
-Kropka, Twarz, Kura, Noga, Most
-Piasek, Ogród, Łąka, Fala, Dach
+dom, dzień, pies, kawa, rosa
+rok, ogień, woda, las, tanie
+słoń, słońce, wiatr, mleko, trawa
+kino, płot, drzewo, książka, kwiat
+kropka, twarz, kura, noga, most
+piasek, ogród, łąka, fala, dach
