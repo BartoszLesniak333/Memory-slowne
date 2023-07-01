@@ -12,7 +12,7 @@ HOW_TO_PLAY_TEXT_PL = 'Cel gry jest prosty: zdobyć jak największą ilość pun
                       ' z czego każdy z nich się różni złożonością słów.\n' \
                       'Po zobaczeniu i zapamiętaniu wyświetlonych słów wprowadź je\n poprzez klawiaturę' \
                       ' w pole tekstowe,' \
-                      ' a następnie kliknij "Dalej".\nZa każdą dobrą odpowiedź są przydzielane dodatnie punkty,\n' \
+                      ' a następnie kliknij "Ok".\nZa każdą dobrą odpowiedź są przydzielane dodatnie punkty,\n' \
                       ' natomiast za błędne ujemne.\nNa sam koniec możesz zobaczyć ile punktów zdobyłeś.\n Powodzenia!'
 
 with open("easy_PL.txt", "r", encoding="utf-8") as ef:
